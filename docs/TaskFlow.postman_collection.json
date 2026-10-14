@@ -1,0 +1,15 @@
+{
+  "info": {"name":"TaskFlow API","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable": [{"key":"baseUrl","value":"http://localhost:5000/api"},{"key":"token","value":"PASTE_LOGIN_TOKEN_HERE"},{"key":"taskId","value":"PASTE_TASK_ID_HERE"}],
+  "item": [
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Register","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"name\": \"Example User\",\n  \"email\": \"user@example.com\",\n  \"password\": \"Test@1234\"\n}"},"url":"{{baseUrl}}/auth/register"}},
+    {"name":"Login","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"email\": \"user@example.com\",\n  \"password\": \"Test@1234\"\n}"},"url":"{{baseUrl}}/auth/login"}},
+    {"name":"Current user","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/auth/me"}},
+    {"name":"List tasks","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/tasks?page=1&limit=8"}},
+    {"name":"Get task","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/tasks/{{taskId}}"}},
+    {"name":"Create task","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"title\": \"Prepare demo\",\n  \"description\": \"Finish the assessment demo\",\n  \"priority\": \"High\",\n  \"status\": \"Pending\"\n}"},"url":"{{baseUrl}}/tasks"}},
+    {"name":"Update task","request":{"method":"PUT","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"status\": \"In Progress\"\n}"},"url":"{{baseUrl}}/tasks/{{taskId}}"}},
+    {"name":"Delete task","request":{"method":"DELETE","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/tasks/{{taskId}}"}}
+  ]
+}

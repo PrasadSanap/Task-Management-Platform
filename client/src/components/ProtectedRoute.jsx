@@ -1,0 +1,2 @@
+import { Navigate, Outlet } from 'react-router-dom'; import { useSelector } from 'react-redux';
+export default function ProtectedRoute(){const user=useSelector(s=>s.auth.user);const token=localStorage.getItem('taskflow_token')||sessionStorage.getItem('taskflow_token');return user&&token?<Outlet/>:<Navigate to="/login" replace/>;}

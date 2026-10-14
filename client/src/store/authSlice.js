@@ -1,0 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit';
+const savedUser=()=>{try{return JSON.parse(localStorage.getItem('taskflow_user')||sessionStorage.getItem('taskflow_user')||'null')}catch{return null}};
+const slice=createSlice({name:'auth',initialState:{user:savedUser()},reducers:{setCredentials(state,action){state.user=action.payload.user;const remember=action.payload.remember;const target=remember?localStorage:sessionStorage;const other=remember?sessionStorage:localStorage;target.setItem('taskflow_token',action.payload.token);target.setItem('taskflow_user',JSON.stringify(action.payload.user));other.removeItem('taskflow_token');other.removeItem('taskflow_user');},clearCredentials(state){state.user=null;localStorage.removeItem('taskflow_token');localStorage.removeItem('taskflow_user');sessionStorage.removeItem('taskflow_token');sessionStorage.removeItem('taskflow_user');}}});
+export const {setCredentials,clearCredentials}=slice.actions;export default slice.reducer;
