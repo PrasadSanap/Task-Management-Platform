@@ -271,7 +271,7 @@ The API can also be tested using Postman. The collection used for testing can be
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard .png)
+![Dashboard](screenshots/dashboard.png)
 
 ### Task Management
 
