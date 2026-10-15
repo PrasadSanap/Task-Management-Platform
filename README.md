@@ -52,36 +52,40 @@ Install the following before running the project:
 
 ### 1. Clone the repository
 
-
+```bash
 git clone https://github.com/PrasadSanap/Task-Management-Platform.git
 cd Task-Management-Platform
+```
 
 
 ### 2. Set up the backend
 
 Open a terminal:
 
-
+```bash
 cd server
 npm install
+```
 
 
 Create a `.env` file inside the `server` folder:
 
-
+```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_long_random_secret
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
+```
 
 
 
 
 Start the backend:
 
-
+```bash
 npm start
+```
 
 
 The backend should run at `http://localhost:5000`.
@@ -90,21 +94,22 @@ The backend should run at `http://localhost:5000`.
 
 Open another terminal from the project root:
 
-
+```bash
 cd client
 npm install
-
+```
 
 Create a `.env` file inside the `client` folder:
 
-
+```env
 VITE_API_URL=http://localhost:5000/api
-
+```
 
 Start the frontend:
 
-
+```bash
 npm run dev
+```
 
 
 Open `http://localhost:5173` in your browser.
@@ -141,12 +146,13 @@ Task listing supports search, filtering, sorting, and pagination through query p
 
 `POST /api/auth/register`
 
-
+```json
 {
   "name": "Test User",
   "email": "testuser@example.com",
   "password": "Test@1234"
 }
+```
 
 
 The request fields must match the validation rules in the application. A successful registration creates a user account.
@@ -157,12 +163,12 @@ The request fields must match the validation rules in the application. A success
 
 `POST /api/auth/login`
 
-
+```json
 {
   "email": "testuser@example.com",
   "password": "Test@1234"
 }
-
+```
 
 On successful login, the API returns an authentication token and user information. Use the token for protected requests as required by the API.
 
@@ -174,12 +180,13 @@ On successful login, the API returns an authentication token and user informatio
 
 Include the JWT in the request header:
 
+```http
 Authorization: Bearer YOUR_JWT_TOKEN
-
+```
 
 Example request body:
 
-
+```json
 {
   "title": "Complete assignment",
   "description": "Finish and test the task management project",
@@ -187,7 +194,7 @@ Example request body:
   "status": "Pending",
   "dueDate": "2026-11-15"
 }
-
+```
 
 Use the field values accepted by the application's task validation. The authenticated user must be authorized to create or modify the requested resource.
 
@@ -263,10 +270,10 @@ task-team-management-platform/
 
 To run the backend tests:
 
-
+```bash
 cd server
 npm test
-
+```
 
 The backend test suite can be used to check supported API and application behaviour.
 
@@ -294,16 +301,18 @@ For deployment, configure the environment variables in the hosting platforms:
 
 **Frontend — Vercel**
 
-
+```env
 VITE_API_URL=https://task-management-platform-serverside.onrender.com/api
-
+```
 
 **Backend — Render**
 
+```env
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_long_random_secret
 JWT_EXPIRES_IN=7d
 CLIENT_URL=http://localhost:5173
+```
 
 ## Test Login Credentials
 
@@ -319,3 +328,7 @@ Make sure the account exists in the deployed database and can log in successfull
 **Prasad Sanap**
 
 GitHub: https://github.com/PrasadSanap
+
+
+
+
