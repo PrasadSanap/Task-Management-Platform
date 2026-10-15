@@ -223,18 +223,22 @@ The frontend uses React concepts required for the application:
 ## Folder Structure
 
 
-Task-Management-Platform/
+
+
+```text
+task-team-management-platform/
 ├── client/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   ├── pages/
 │   │   ├── hooks/
+│   │   ├── pages/
 │   │   ├── services/
 │   │   ├── store/
-│   │   └── utils/
-│   ├── .env.example
-│   └── package.json
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── server/
 │   ├── config/
@@ -243,12 +247,17 @@ Task-Management-Platform/
 │   ├── models/
 │   ├── routes/
 │   ├── tests/
-│   ├── .env.example
-│   └── package.json
+│   ├── package.json
+│   └── server.js
 │
-├── README.md
-└── .gitignore
-
+├── screenshots/
+│   ├── login.png
+│   ├── dashboard.png
+│   └── tasks.png
+│
+├── .gitignore
+└── README.md
+```
 
 ## Testing
 
