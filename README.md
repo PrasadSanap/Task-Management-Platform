@@ -1,65 +1,312 @@
-# Task & Team Management Platform
+# Task Management Platform
 
-A full-stack task manager built for the Full Stack Intern technical assessment.
+A full-stack web application to manage tasks in one place. Users can create tasks, update their status, set priorities and due dates, and track their progress from the dashboard.
 
-## Stack
-- Frontend: React, Vite, React Router, Axios, Redux Toolkit, Tailwind CSS
-- Backend: Node.js, Express, Mongoose
-- Database: MongoDB Atlas
-- Security: bcrypt password hashing, JWT authentication, ownership checks
-- Included extras: dark mode, toast notifications, paginated task list, backend unit tests
+## Live Demo
 
-## Requirements
-Node.js 20+ and a MongoDB Atlas connection string.
+- **Frontend:** https://task-management-platform-clientside.vercel.app/
+- **Backend:** https://task-management-platform-serverside.onrender.com
+- **GitHub Repository:** https://github.com/PrasadSanap/Task-Management-Platform
 
-## 1. Configure the backend
-```powershell
+## Features
+
+- User registration and login using JWT authentication
+- Protected pages and API routes
+- Create, view, update, and delete tasks
+- Set task priority, status, due date, and assigned user
+- Search and filter tasks
+- Sort tasks by date
+- Dashboard showing task statistics
+- Pagination for the task list
+- Dark mode and toast notifications
+- Form validation and error messages
+- Password hashing using bcrypt
+- Backend unit tests
+
+## Tech Stack
+
+**Frontend**
+- React and Vite
+- React Router
+- Redux Toolkit
+- Axios
+- Tailwind CSS
+
+**Backend**
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcrypt
+
+## Getting Started
+
+### Prerequisites
+
+Install the following before running the project:
+
+- Node.js and npm
+- A MongoDB Atlas account or a local MongoDB instance
+- Git
+
+### 1. Clone the repository
+
+
+git clone https://github.com/PrasadSanap/Task-Management-Platform.git
+cd Task-Management-Platform
+
+
+### 2. Set up the backend
+
+Open a terminal:
+
+
 cd server
-Copy-Item .env.example .env
-```
-Edit `server/.env` and set `MONGODB_URI` and a long random `JWT_SECRET`.
-
-```powershell
 npm install
-npm run dev
-```
-Backend runs at `http://localhost:5000`; health check: `http://localhost:5000/api/health`.
 
-## 2. Configure the frontend
-Open another terminal:
-```powershell
+
+Create a `.env` file inside the `server` folder:
+
+
+PORT=5000
+MONGODB_URI=mongodb+srv://sanapprasad123_db_user:kXkZMJfig3vLMsmC@internshiptask.tsamdbt.mongodb.net/?appName=InternshipTask
+JWT_SECRET=TaskFlow_2026_Secure_Key_9f7K2mP8vR4xL6qW1nZ5bT3c
+CLIENT_URL=http://localhost:5173
+NODE_ENV=development
+
+
+
+
+Start the backend:
+
+
+npm start
+
+
+The backend should run at `http://localhost:5000`.
+
+### 3. Set up the frontend
+
+Open another terminal from the project root:
+
+
 cd client
-Copy-Item .env.example .env
 npm install
+
+
+Create a `.env` file inside the `client` folder:
+
+
+VITE_API_URL=http://localhost:5000/api
+
+
+Start the frontend:
+
+
 npm run dev
-```
-Frontend runs at the URL printed by Vite, usually `http://localhost:5173`.
 
-## API
-All task routes require `Authorization: Bearer <token>`.
-- `POST /api/auth/register` — `{ "name": "Example User", "email": "user@example.com", "password": "Test@1234" }`
-- `POST /api/auth/login` — `{ "email": "user@example.com", "password": "Test@1234" }`
-- `GET /api/auth/me`
-- `GET /api/tasks` (supports `search`, `status`, `priority`, `sort`, `page`, `limit` query parameters)
-- `GET /api/tasks/:id`
-- `POST /api/tasks` — title, description, priority, dueDate, status, assignedUser
-- `PUT /api/tasks/:id`
-- `DELETE /api/tasks/:id`
 
-Task records are scoped to the logged-in user. The `assignedUser` field references a User document. Validation errors return 400, missing resources 404, and missing/invalid JWTs 401.
+Open `http://localhost:5173` in your browser.
 
-## Tests
-```powershell
+## API Documentation
+
+The API base URL for local development is:
+
+`http://localhost:5000/api`
+
+### Authentication
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/auth/register` | Register a new user |
+| POST | `/auth/login` | Log in and receive an authentication token |
+| GET | `/auth/me` | Get the currently authenticated user's details |
+
+### Tasks
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/tasks` | Get tasks for the authenticated user |
+| GET | `/tasks/:id` | Get a task by ID |
+| POST | `/tasks` | Create a task |
+| PUT | `/tasks/:id` | Update a task |
+| DELETE | `/tasks/:id` | Delete a task |
+
+Task listing supports search, filtering, sorting, and pagination through query parameters implemented by the backend.
+
+### Example: Register
+
+**Request**
+
+`POST /api/auth/register`
+
+
+{
+  "name": "Test User",
+  "email": "testuser@example.com",
+  "password": "Test@1234"
+}
+
+
+The request fields must match the validation rules in the application. A successful registration creates a user account.
+
+### Example: Login
+
+**Request**
+
+`POST /api/auth/login`
+
+
+{
+  "email": "testuser@example.com",
+  "password": "Test@1234"
+}
+
+
+On successful login, the API returns an authentication token and user information. Use the token for protected requests as required by the API.
+
+### Example: Create a task
+
+**Request**
+
+`POST /api/tasks`
+
+Include the JWT in the request header:
+
+Authorization: Bearer YOUR_JWT_TOKEN
+
+
+Example request body:
+
+
+{
+  "title": "Complete assignment",
+  "description": "Finish and test the task management project",
+  "priority": "High",
+  "status": "Pending",
+  "dueDate": "2026-11-15"
+}
+
+
+Use the field values accepted by the application's task validation. The authenticated user must be authorized to create or modify the requested resource.
+
+### Error handling
+
+The API returns appropriate HTTP status codes for common situations:
+
+- `400` — Invalid request or validation error
+- `401` — Missing or invalid authentication
+- `404` — Requested resource not found
+- `500` — Unexpected server error
+
+## Database
+
+The application uses MongoDB with Mongoose models.
+
+- **User:** Stores user account information, including a hashed password.
+- **Task:** Stores task details such as title, description, status, priority, due date, and user references.
+
+Tasks are associated with users so that users can access only the data they are authorized to view or modify.
+
+## React Concepts Used
+
+The frontend uses React concepts required for the application:
+
+- `useState` and `useEffect` for state and side effects
+- `useMemo` and `useCallback` for performance-related optimizations
+- `React.memo` to avoid unnecessary component renders where appropriate
+- Custom hooks for reusable logic
+- Redux Toolkit for shared application state
+- Lazy loading and `Suspense` for loading components
+
+## Folder Structure
+
+
+Task-Management-Platform/
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── store/
+│   │   └── utils/
+│   ├── .env.example
+│   └── package.json
+│
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── tests/
+│   ├── .env.example
+│   └── package.json
+│
+├── README.md
+└── .gitignore
+
+
+## Testing
+
+To run the backend tests:
+
+
 cd server
 npm test
-```
+
+
+The backend test suite can be used to check supported API and application behaviour.
+
+The API can also be tested using Postman. The collection used for testing can be included in the repository or submitted separately.
+
+## Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login.png)
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Task Management
+
+![Task Management](screenshots/tasks.png)
 
 ## Deployment
-1. Create a MongoDB Atlas cluster and add the Render outbound access policy / network access settings required by your account.
-2. Deploy `server` as a Node web service on Render. Build command `npm install`, start command `npm start`. Add `MONGODB_URI`, `JWT_SECRET`, `CLIENT_URL` (your deployed Vercel URL), and `NODE_ENV=production` environment variables.
-3. Deploy `client` on Vercel with root directory `client` and build command `npm run build`. Add `VITE_API_URL` pointing to the deployed backend URL plus `/api` (example format: `https://your-service.onrender.com/api`).
-4. Update `CLIENT_URL` on Render to the actual Vercel domain and redeploy.
-5. Register test users on the live site and put the real test credentials and live URLs in this README before submitting. Do not submit the example credentials unless you have created and verified those accounts.
 
-## Security notes
-Never commit `.env` files. The app hashes passwords, uses JWTs, validates IDs and input, and prevents users from modifying/deleting another user's tasks. Remember Me keeps the token in local storage; without it, the token is stored for the current browser tab session.
+The frontend is deployed on Vercel and the backend on Render. MongoDB Atlas is used for the database.
+
+For deployment, configure the environment variables in the hosting platforms:
+
+**Frontend — Vercel**
+
+
+VITE_API_URL=https://task-management-platform-serverside.onrender.com/api
+
+
+**Backend — Render**
+
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5173
+
+## Test Login Credentials
+
+Provide working credentials for the deployed application before submission.
+
+- **Email:** testuser@example.com
+- **Password:** Test@1234
+
+Make sure the account exists in the deployed database and can log in successfully. Do not use these placeholder values as submission credentials unless you have created that account.
+
+## Author
+
+**Prasad Sanap**
+
+GitHub: https://github.com/PrasadSanap
