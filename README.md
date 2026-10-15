@@ -70,8 +70,8 @@ Create a `.env` file inside the `server` folder:
 
 
 PORT=5000
-MONGODB_URI=mongodb+srv://sanapprasad123_db_user:kXkZMJfig3vLMsmC@internshiptask.tsamdbt.mongodb.net/?appName=InternshipTask
-JWT_SECRET=TaskFlow_2026_Secure_Key_9f7K2mP8vR4xL6qW1nZ5bT3c
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
 
@@ -271,7 +271,7 @@ The API can also be tested using Postman. The collection used for testing can be
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard .png)
 
 ### Task Management
 
